@@ -43,7 +43,7 @@ var ldapSettings = {
 
 var app = express();
 app.use(bodyParser.json());
-app.use(express.static(path.join(`${__dirname}/dist/sms-to-email/`)));
+app.use(express.static(path.join(`${__dirname}/dist/`)));
 app.use(bodyParser.urlencoded({extended: false}));
 // app.use(require('express-session')({
 //   secret: "This is the most amazing commercial",
@@ -72,7 +72,7 @@ app.use('/api/register', registerRoute);
 //INITIAL ROUTE
 
 app.all('*', function(req, res){
-  res.status(200).sendFile(path.join(`${__dirname}/dist/sms-to-email/index.html`))
+  res.status(200).sendFile(path.join(`${__dirname}/dist/index.html`))
 });
 
 
