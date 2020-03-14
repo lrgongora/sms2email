@@ -15,7 +15,10 @@ router.get('/callback', function(req, res){
 router.post('/callback', function(req, res){
   var inboundNumber = req.body.to;
   var authCode = req.body.text;
+  console.log(req.body)
+  console.log(req.body.text)
   User.find({phoneNumber : inboundNumber}, function(data, err){
+      console.log(data)
     if(err){
       return res.status(400).json({"status" : "error", "message" : err});
     }
