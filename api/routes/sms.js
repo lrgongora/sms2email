@@ -24,15 +24,11 @@ router.post('/callback', function(req, res){
         let transporter = nodemailer.createTransport({
         host: 'smtp.office365.com', // Office 365 server
         port: 587,     // secure SMTP
-        secure: true, // false for TLS - as a boolean not string - but the default is false so just remove this completely
+        secure: false, // false for TLS - as a boolean not string - but the default is false so just remove this completely
         auth: {
             user: 'lrgongora@outlook.com',
             pass: 'Apoc@lipsis233'
-        },
-        tls: {
-            ciphers: 'SSLv3'
-        },
-            requireTLS: true
+        }
 
     });
 
