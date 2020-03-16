@@ -33,24 +33,16 @@ router.post('/callback', function(req, res){
 
     });
 
-  // send mail with defined transport object
-  let options = {
-    from: '"Sms2Email" <lrgongora@outlook.com>', // sender address
-    to: recipient, // list of receivers
-    subject: "MFA Code", // Subject line
-    html: ejs.render(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}),
-    context: {
-        authCode : authCode
-    }
-  };
-
-transporter.verify(function(error, success) {
-   if (error) {
-        console.log(error);
-   } else {
-        console.log('Server is ready to take messages');
-   }
-});
+ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}, function(err, data){
+        if(err){
+            console.log(err);
+        } else {
+              var options = {
+              from: '"Sms2Email" <lrgongora@outlook.com>', // sender address
+              to: recipient, // list of receivers
+              subject: "MFA Code", // Subject line
+              html: data,
+             };
 
   transporter.sendMail(options, function(error, info){
       if(error){
@@ -60,6 +52,8 @@ transporter.verify(function(error, success) {
       console.log(info)
       console.log("Message sent: %s", info.messageId);})
       res.status(200).json({"status" : "success", "message" : "success" });
+        }
+    })
 
   })
   
