@@ -17,7 +17,7 @@ router.post('/callback', function(req, res){
   var authCode = req.body.text;
   User.find({phoneNumber : inboundNumber}, function(err, user){
       let recipient = user.email
-      console.log(data)
+      console.log(user)
     if(err){
       return res.status(400).json({"status" : "error", "message" : err});
     }
