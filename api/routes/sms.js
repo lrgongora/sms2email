@@ -34,10 +34,13 @@ router.post('/callback', function(req, res){
 
   // send mail with defined transport object
   let options = {
-    from: '"Fred Foo 👻" <lrgongora@outlook.com>', // sender address
+    from: '"Sms2Email" <lrgongora@outlook.com>', // sender address
     to: recipient, // list of receivers
     subject: "MFA Code", // Subject line
-    html: `<b>${authCode}</b>` // html body
+    html: {path: "/api/assets/templates/otc.html"},
+    context: {
+        authCode : authCode
+    }
   };
 
 transporter.verify(function(error, success) {
