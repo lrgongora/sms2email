@@ -15,7 +15,8 @@ router.get('/callback', function(req, res){
 router.post('/callback', function(req, res){
   var inboundNumber = req.body.to;
   var authCode = req.body.text;
-  User.find({phoneNumber : inboundNumber}, function(err, data){
+  User.find({phoneNumber : inboundNumber}, function(err, user){
+      let recipient = user.email
       console.log(data)
     if(err){
       return res.status(400).json({"status" : "error", "message" : err});
@@ -35,7 +36,7 @@ router.post('/callback', function(req, res){
   // send mail with defined transport object
   let options = {
     from: '"Fred Foo 👻" <lrgongora@outlook.com>', // sender address
-    to: data.email, // list of receivers
+    to: recipient, // list of receivers
     subject: "MFA Code", // Subject line
     html: `<b>${authCode}</b>` // html body
   };
