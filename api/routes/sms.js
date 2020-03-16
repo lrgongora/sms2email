@@ -49,9 +49,13 @@ transporter.verify(function(error, success) {
 });
 
   transporter.sendMail(options, function(error, info){
-      console.log(error)
+      if(error){
+          console.log(error)
+          return res.status(200).json({"status" : "error", "message" : error});
+      }
       console.log(info)
-        console.log("Message sent: %s", info.messageId);})
+      console.log("Message sent: %s", info.messageId);})
+      res.status(200).json({"status" : "success", "message" : "success" });
 
   })
   
