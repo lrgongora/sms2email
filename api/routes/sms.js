@@ -14,8 +14,10 @@ router.get('/callback', function(req, res){
 });
 
 router.post('/callback', function(req, res){
-  var inboundNumber = req.body.to;
-  var authCode = req.body.text;
+//   var inboundNumber = req.body.to;
+//   var authCode = req.body.text;
+  var inboundNumber = req.body.to || req.body.data.attributes.to;
+  var authCode = req.body.text || req.body.data.attributes.body;
   User.find({phoneNumber : inboundNumber}, function(err, user){
       let recipient = user[0].email
     if(err){
