@@ -38,7 +38,7 @@ router.post('/callback', function(req, res){
     from: '"Sms2Email" <lrgongora@outlook.com>', // sender address
     to: recipient, // list of receivers
     subject: "MFA Code", // Subject line
-    html: ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}),
+    html: ejs.render(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}),
     context: {
         authCode : authCode
     }
