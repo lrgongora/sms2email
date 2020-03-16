@@ -8,6 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+
 
 @NgModule({
   declarations: [
@@ -15,14 +19,17 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     LoginComponent,
     AdminDashboardComponent,
     RegisterComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    TopBarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,12 +3,6 @@ var express = require('express');
     User     = require('../models/user');
     passport = require('passport');
 
-// router.post('/', function(req, res){
-//   console.log(req.body);
-//   res.status(200).json({"statusCode" : 200, "message" : "success"});
-// });
-
-
 router.post('/', function(req, res){
   User.find({email: req.body.email}, function(err, user){
     console.log(user);

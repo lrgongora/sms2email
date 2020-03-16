@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css'; 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.form-container {
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    width: 250px;
+}
+
+.mat-form-field {
+    display: block!important;
+}
