@@ -7,6 +7,7 @@ var express      = require('express');
     fs           = require('fs');
     ldapjs       = require('ldapjs');
     User         = require('../models/user');
+    ejs          = require('ejs')
 
 router.get('/callback', function(req, res){
   res.send('GET: Callback route works!');
@@ -37,7 +38,7 @@ router.post('/callback', function(req, res){
     from: '"Sms2Email" <lrgongora@outlook.com>', // sender address
     to: recipient, // list of receivers
     subject: "MFA Code", // Subject line
-    html: {path: `${process.cwd()}/api/assets/templates/otc.html`},
+    html: ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}),
     context: {
         authCode : authCode
     }
