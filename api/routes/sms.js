@@ -14,35 +14,41 @@ router.get('/callback', function(req, res){
 });
 
 router.post('/callback', function(req, res){
-//   var inboundNumber = req.body.to;
-//   var authCode = req.body.text;
   var inboundNumber = req.body.to;
   var authCode = req.body.text || req.body.body;
+      authCode = authCode.match(/([0-9])\w{3,}/);
+  if(authCode == null){
+      console.log("Can't find verification code in message!")
+      return res.status(200).json({"message" : "success"})
+  } else {
+      authCode = authCode[0];
+  }
   User.find({phoneNumber : inboundNumber}, function(err, user){
-      let recipient = user[0].email
-    if(err){
-      return res.status(400).json({"status" : "error", "message" : err});
-    }
-
+      console.log(user)
+    if(err || user === null){
+        console.log(err)
+      return res.status(400).json({"status" : "error", err});
+    } else {
+    let recipient = user[0].email
         let transporter = nodemailer.createTransport({
-        host: 'smtp.office365.com', // Office 365 server
-        port: 587,     // secure SMTP
-        secure: false, // false for TLS - as a boolean not string - but the default is false so just remove this completely
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false,
         auth: {
             user: 'lrgongora@outlook.com',
             pass: 'Apoc@lipsis233'
         }
 
     });
-
+console.log(authCode)
 ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}, function(err, data){
         if(err){
             console.log(err);
         } else {
               var options = {
-              from: '"Sms2Email" <lrgongora@outlook.com>', // sender address
-              to: recipient, // list of receivers
-              subject: "MFA Code", // Subject line
+              from: '"Sms2Email" <lrgongora@outlook.com>',
+              to: recipient,
+              subject: "MFA Code",
               html: data,
              };
 
@@ -56,9 +62,9 @@ ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : auth
       res.status(200).json({"status" : "success", "message" : "success" });
         }
     })
-
+    }
   })
-  
+
   })
 
 module.exports = router;
