@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit {
     .then((response) => {
       console.log(response);
       this.authService.setUserInfo({'user' : response['user']});
+      if(response['user'].isAdmin){
+          this.route.navigate(['admin/dashboard']);
+      } else {
       this.route.navigate(['user/dashboard']);
+      }
     })
   }
 

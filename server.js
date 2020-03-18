@@ -9,6 +9,7 @@ var express      = require('express'),
     smsRoute     = require('./api/routes/sms');
     loginRoute   = require('./api/routes/login');
     registerRoute = require('./api/routes/register');
+    usersRoute = require('./api/routes/users');
     User         = require('./api/models/user');
     port         = process.env.PORT  || 8080;
 
@@ -68,6 +69,7 @@ passport.use(new passportLocalStrategy(User.authenticate()));
 app.use('/api/sms', smsRoute)
 app.use('/api/login', loginRoute);
 app.use('/api/register', registerRoute);
+app.use('/api/users', usersRoute)
 
 //INITIAL ROUTE
 
