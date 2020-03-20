@@ -27,33 +27,15 @@ mongoose.connect(mongoUri, {useNewUrlParser: true, useUnifiedTopology: true}, fu
   }
 })
 
-
-var ldapSettings = {
-  server: {
-    url: 'ldaps://ad.corporate.com:636',
-    bindDN: 'cn=non-person,ou=system,dc=corp,dc=corporate,dc=com',
-    bindCredentials: 'secret',
-    searchBase: 'dc=corp,dc=corporate,dc=com',
-    searchFilter: '(&(objectcategory=person)(objectclass=user)(|(samaccountname={{username}})(mail={{username}})))',
-    searchAttributes: ['displayName', 'mail'],
-    tlsOptions: {
-      ca: [
-        // fs.readFileSync('/path/to/root_ca_cert.crt')
-      ]
-    }
-  }
-};
-
-
 var app = express();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(bodyParser.json());
 app.use(express.static(path.join(`${__dirname}/dist/`)));
 app.use(bodyParser.urlencoded({extended: false}));
-// app.use(require('express-session')({
-//   secret: "This is the most amazing commercial",
-//   resave: false,
-//   saveUninitialized: false
-// }));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(User.serializeUser(), function(user, done){
@@ -95,4 +77,4 @@ app.all('*', function(req, res){
 });
 
 
-app.listen(8081);
+app.listen(port);
