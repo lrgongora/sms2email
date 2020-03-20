@@ -21,18 +21,46 @@ router.get("/", function(req, res){
 })
 
 router.post("/", function(req, res){
-    let use = req.body.user;
+    let user = req.body;
     User.create(user, function(err, newUser){
         if(err){
             middleware.logsHandler("error", err.message)
             res.status(200).json({"status" : "error", "message" : err.message});
         } else {
-             middleware.logsHandler("user-add", `New user: ${newUser.username}`)
+             middleware.logsHandler("user-add", `New User: ${newUser.username}`)
              res.status(200).json({"status" : "success", "message" : "Succesfully added new user!"});
         }
     })
 })
 
+
+router.put("/:id", function(req, res){
+    let id = req.params.id;
+    let user = req.body;
+    User.findByIdAndUpdate(id, user, function(err, updatedUser){
+        if(err){
+            middleware.logsHandler("error", err.message)
+            res.status(200).json({"status" : "error", "message" : err.message});
+        } else {
+             middleware.logsHandler("user-update", `Updated User: ${updatedUser.username}`)
+             res.status(200).json({"status" : "success", "message" : "Succesfully updated user!"});
+        }
+    })
+})
+
+
+router.delete("/:id", function(req, res){
+    let id = req.params.id;
+    User.findByIdAndDelete(id, function(err, deletedUser){
+        if(err){
+            middleware.logsHandler("error", err.message)
+            res.status(200).json({"status" : "error", "message" : err.message});
+        } else {
+             middleware.logsHandler("user-delete", `Deleted User: ${deletedUser.username}`)
+             res.status(200).json({"status" : "success", "message" : "Succesfully deleted user!"});
+        }
+    })
+})
 
 
 

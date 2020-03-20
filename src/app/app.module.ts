@@ -13,6 +13,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { UserslistComponent } from './userslist/userslist.component';
 import { LogslistComponent } from './logslist/logslist.component';
+import { AddUserComponent } from './add-user/add-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AgGridModule } from 'ag-grid-angular';
@@ -30,7 +31,8 @@ import { AgGridModule } from 'ag-grid-angular';
     ModalEditComponent,
     UserEditorComponent,
     UserslistComponent,
-    LogslistComponent
+    LogslistComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ import { AgGridModule } from 'ag-grid-angular';
     MaterialModule,
     AgGridModule.withComponents()
   ],
+  entryComponents: [AddUserComponent, UserEditorComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -31,3 +31,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-top: none!important;
 }
 
+.selection-icons {
+    cursor: pointer!important;
+    line-height: 0.8!important;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: transparent!important;
+}
+
+.ag-cell-focus, .ag-cell {
+    border: none !important;
+}

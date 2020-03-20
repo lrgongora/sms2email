@@ -37,4 +37,44 @@ export class WebApiService {
      )
   }
 
+     addUser(user){
+         this.http.post(this.BASE_URL + "/users", user).subscribe(
+         res => {
+            this.getUsers();
+            this.getLogs();
+            this.snackBar.open("Success!", "Dismiss", {duration: 5000});
+         },
+         (err : HttpErrorResponse) => {
+            this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
+         }
+     )
+  }
+
+  updateUser(id, user){
+         this.http.put(this.BASE_URL + "/users/" + id, user).subscribe(
+         res => {
+            this.getUsers();
+            this.getLogs();
+            this.snackBar.open("Successfully updated!", "Dismiss", {duration: 5000});
+         },
+         (err : HttpErrorResponse) => {
+            this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
+         }
+     )
+  }
+
+  deleteUser(id){
+         this.http.delete(this.BASE_URL + "/users/" + id).subscribe(
+         res => {
+            this.getUsers();
+            this.getLogs();
+            this.snackBar.open("Deleted!", "Dismiss", {duration: 5000});
+         },
+         (err : HttpErrorResponse) => {
+            this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
+         }
+     )
+
+  }
+
 }

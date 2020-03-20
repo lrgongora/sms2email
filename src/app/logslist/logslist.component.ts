@@ -18,7 +18,7 @@ export class LogslistComponent implements OnInit {
       this.columnDefs = [
         {headerName: 'ID', field: '_id', filter: true, sortable: true },
         {headerName: 'Type', field: 'type', filter: true, sortable: true  },
-        {headerName: 'Date', field: 'date', filter: true, sortable: true, flex: true },
+        {headerName: 'Date', field: 'date', filter: true, sortable: true, flex: true, sort: "desc"},
         {headerName: 'Description', field: 'description', filter: true, sortable: true, flex: true }
     ];
 

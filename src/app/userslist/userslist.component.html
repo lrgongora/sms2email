@@ -1,5 +1,12 @@
 <mat-card>
 <mat-card-title>Users</mat-card-title>
+<mat-toolbar>
+<span style="flex: 1 1 auto"></span>
+<button class="toolbar-buttons" mat-flat-button (click)="openAddUser()"  color="primary"><mat-icon class="selection-icons">person_add</mat-icon> Add User</button>
+<button class="toolbar-buttons" mat-flat-button (click)="editUser()"  color="primary"><mat-icon class="selection-icons">edit</mat-icon> Edit User</button>
+<button class="toolbar-buttons" mat-flat-button (click)="deleteUser()"  color="warn"><mat-icon class="selection-icons">delete</mat-icon> Delete User</button>
+
+</mat-toolbar>
 <ag-grid-angular
     style="width: 500px; height: 500px;"
     class="ag-theme-material"
@@ -7,9 +14,12 @@
     [paginationAutoPageSize]="true"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
+    [suppressRowClickSelection]="true"
+    [rowSelection]="rowSelection"
     (gridReady)="onGridReady($event)"
-    (onCellValueChanged)="onCellValueChanged($event)"
     (onRowValueChanged)="onRowValueChanged($event)"
+    (rowClicked)='onRowClicked($event)'
+    
     >
 </ag-grid-angular>
 </mat-card>

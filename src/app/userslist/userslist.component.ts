@@ -2,7 +2,18 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@an
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { WebApiService } from '../web-api.service';
 import { MaterialModule } from '../material.module';
+import { MatDialog } from '@angular/material/dialog';
 import { UserEditorComponent } from '../user-editor/user-editor.component';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+export interface User {
+      username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
 
 @Component({
   selector: 'app-userslist',
@@ -14,19 +25,26 @@ export class UserslistComponent implements OnInit {
     rowData;
     gridApi;
     gridColumnApi;
+  rowSelection;
+  selectedUser;
 
-  constructor(private http : HttpClient, private webApi : WebApiService) {
+  constructor(private http : HttpClient, private webApi : WebApiService, public dialog : MatDialog, private snackBar : MatSnackBar) {
       this.columnDefs = [
-        {headerName: 'Username', field: 'username', filter: true, sortable: true, autoWidth: true, flex: true },
+        {headerName: 'ID', field: '_id', hide: true},
+        {headerName: 'Username', field: 'username', filter: true, sortable: true, autoWidth: true, flex: true, checkboxSelection: true},
         {headerName: 'First Name', field: 'firstName', filter: true, sortable: true, autoWidth: true  },
         {headerName: 'Last Name', field: 'lastName', filter: true, sortable: true, autoWidth: true },
         {headerName: 'Email', field: 'email', filter: true, sortable: true, autoWidth: true },
         {headerName: 'Phone Number', field: 'phoneNumber', filter: true, sortable: true, cellEditor: 'agTextCellEditor', editable: true, autoWidth: true}
     ];
     this.webApi.getLogs();
+
+    this.rowSelection = 'single';
       
 
   }
+
+  
 
   ngOnInit(): void {
 
@@ -46,9 +64,38 @@ export class UserslistComponent implements OnInit {
         console.log(event);
     }
 
-      onCellValueChanged(event){
+      onRowClicked(event){
         console.log(event);
     }
 
+      openAddUser(): void {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      width: '500px',
+      data: {}
+    });
+
+}
+
+    editUser(){
+      this.selectedUser = this.gridApi.getSelectedRows()[0];
+      if(!this.selectedUser){
+      this.snackBar.open("Make a selection!", "Dismiss", {duration: 5000});
+      } else {
+      const dialogRef = this.dialog.open(UserEditorComponent, {
+      width: '500px',
+      data: this.selectedUser
+    });
+}
+}
+
+    deleteUser(){
+    this.selectedUser = this.gridApi.getSelectedRows()[0];
+      if(!this.selectedUser){
+      this.snackBar.open("Make a selection!", "Dismiss", {duration: 5000});
+      } else {
+    let userId = this.selectedUser.id
+    this.webApi.deleteUser(userId)
+    }
+}
 
 }
