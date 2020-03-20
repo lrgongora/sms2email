@@ -24,12 +24,12 @@ router.post('/register', function(req, res){
     if(err){
       console.log(err);
     } else {
-      if(user == ""){
+      if(user){
         var newUser = {username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, phoneNumber : req.body.phoneNumber}
         User.register(new User(newUser), req.body.password, function(err, user){
           if(err){
             console.log(err);
-              return res.status(200).json({"status" : "error", "message" : err});
+            return res.status(200).json({"status" : "error", "message" : err});
           }
           passport.authenticate('local')(req, res, function(){
             let token = jwt.sign(user.toJSON(), config.secret);
