@@ -1,4 +1,6 @@
-<div class="form-container" id="register-form">
+<mat-card  class="form-container" id="register-form">
+<mat-card-title>Register</mat-card-title>
+<div>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
 
   <mat-form-field appearance="fill">
@@ -37,3 +39,4 @@
 
 </form>
 </div>
+<mat-card>

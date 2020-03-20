@@ -1,0 +1,26 @@
+ag-grid-angular {
+    min-height: 500px!important;
+    width: 100%!important;
+}
+
+.mat-card {
+    max-width: 1010px!important;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+.ag-theme-material .ag-cell {
+    cursor: pointer!important;
+}
+
+.mat-card-title {
+    padding-left: 23px!important;
+}
+
+.ag-center-cols-container {
+    width: 100%!important;
+}
+
+.ag-cell-value, .ag-group-value {
+    overflow: visible!important;
+}

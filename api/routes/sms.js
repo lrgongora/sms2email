@@ -7,6 +7,7 @@ var express      = require('express');
     fs           = require('fs');
     ldapjs       = require('ldapjs');
     User         = require('../models/user');
+    middleware = require('../middleware/middleware');
     ejs          = require('ejs')
 
 router.get('/callback', function(req, res){
@@ -14,11 +15,12 @@ router.get('/callback', function(req, res){
 });
 
 router.post('/callback', function(req, res){
+    middleware.logsHandler("error", "Can't find verification code in message!")
   var inboundNumber = req.body.to;
   var authCode = req.body.text || req.body.body;
       authCode = authCode.match(/([0-9])\w{3,}/);
   if(authCode == null){
-      console.log("Can't find verification code in message!")
+      middleware.logsHandler("error", "Can't find verification code in message!")
       return res.status(200).json({"message" : "success"})
   } else {
       authCode = authCode[0];
@@ -26,10 +28,11 @@ router.post('/callback', function(req, res){
   User.find({phoneNumber : inboundNumber}, function(err, user){
       console.log(user)
     if(err || user === null){
+        middleware.logsHandler("error", err.message)
         console.log(err)
       return res.status(400).json({"status" : "error", err});
     } else {
-    let recipient = user[0].email
+    var recipient = user[0].email
         let transporter = nodemailer.createTransport({
         host: 'smtp.office365.com',
         port: 587,
@@ -52,13 +55,14 @@ ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : auth
               html: data,
              };
 
-  transporter.sendMail(options, function(error, info){
-      if(error){
-          console.log(error)
-          return res.status(200).json({"status" : "error", "message" : error});
+  transporter.sendMail(options, function(err, info){
+      if(err){
+          middleware.logsHandler("error", err.message)
+          return res.status(200).json({"status" : "error", "message" : err});
       }
       console.log(info)
       console.log("Message sent: %s", info.messageId);})
+      middleware.logsHandler("message-sent", `To: ${inboundNumber} Redirected: ${recipient}` )
       res.status(200).json({"status" : "success", "message" : "success" });
         }
     })

@@ -10,6 +10,7 @@ var express      = require('express'),
     loginRoute   = require('./api/routes/login');
     registerRoute = require('./api/routes/register');
     usersRoute = require('./api/routes/users');
+    logsRoute = require('./api/routes/logs');
     User         = require('./api/models/user');
     port         = process.env.PORT  || 8080;
 
@@ -70,6 +71,7 @@ app.use('/api/sms', smsRoute)
 app.use('/api/login', loginRoute);
 app.use('/api/register', registerRoute);
 app.use('/api/users', usersRoute)
+app.use('/api/logs', logsRoute)
 
 //INITIAL ROUTE
 

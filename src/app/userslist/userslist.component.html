@@ -1,0 +1,15 @@
+<mat-card>
+<mat-card-title>Users</mat-card-title>
+<ag-grid-angular
+    style="width: 500px; height: 500px;"
+    class="ag-theme-material"
+    [pagination]="true"
+    [paginationAutoPageSize]="true"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    (onCellValueChanged)="onCellValueChanged($event)"
+    (onRowValueChanged)="onRowValueChanged($event)"
+    >
+</ag-grid-angular>
+</mat-card>

@@ -10,6 +10,9 @@ import { RegisterComponent } from './register/register.component';
 import { ModalEditComponent } from './modal-edit/modal-edit.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { UserEditorComponent } from './user-editor/user-editor.component';
+import { UserslistComponent } from './userslist/userslist.component';
+import { LogslistComponent } from './logslist/logslist.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AgGridModule } from 'ag-grid-angular';
@@ -24,7 +27,10 @@ import { AgGridModule } from 'ag-grid-angular';
     RegisterComponent,
     UserDashboardComponent,
     TopBarComponent,
-    ModalEditComponent
+    ModalEditComponent,
+    UserEditorComponent,
+    UserslistComponent,
+    LogslistComponent
   ],
   imports: [
     BrowserModule,
