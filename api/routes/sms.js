@@ -36,7 +36,7 @@ router.post('/callback', function(req, res){
         console.log(err)
       return res.status(200).json({"status" : "ok"});
     } else {
-    var recipient = foundUser[0].email
+        var recipient = foundUser.email
         let transporter = nodemailer.createTransport(emailConfig);
 ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : authCode}, function(err, data){
         if(err){
