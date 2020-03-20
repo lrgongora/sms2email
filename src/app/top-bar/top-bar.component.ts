@@ -14,7 +14,7 @@ export class TopBarComponent implements OnInit {
   ngOnInit(): void {
   }
   logOut(){
-      this.auth.logOut();
+    this.auth.logOut();
   }
   isAuthenticated(){
       return this.auth.isAuthenticated();

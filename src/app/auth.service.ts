@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-
+    isAdmin : Boolean;
   constructor(private http: HttpClient, private route : Router) { }
 
   public isAuthenticated () : Boolean {
@@ -27,12 +27,13 @@ export class AuthService {
   }
 
   public validate(username, password){
-    return this.http.post('/api/login', {"username" : username, "password": password}).toPromise();
+    return this.http.post('/auth/login', {"username" : username, "password": password}).toPromise();
   }
 
   public logOut(){
       localStorage.removeItem("userInfo");
       this.route.navigate(['login']);
+      return this.http.get('/auth/logout').subscribe();
   }
 
 }

@@ -7,12 +7,14 @@ var express      = require('express'),
     path         = require('path');
     fs           = require('fs');
     smsRoute     = require('./api/routes/sms');
-    loginRoute   = require('./api/routes/login');
-    registerRoute = require('./api/routes/register');
-    usersRoute = require('./api/routes/users');
-    logsRoute = require('./api/routes/logs');
+    authRoute    = require('./api/routes/auth');
+    usersRoute   = require('./api/routes/users');
+    logsRoute    = require('./api/routes/logs');
     User         = require('./api/models/user');
     port         = process.env.PORT  || 8080;
+    passportJWT  = require("passport-jwt");
+    JWTStrategy  = passportJWT.Strategy;
+    ExtractJWT   = passportJWT.ExtractJwt;
 
 const mongoUri = process.env.MONGOURI;
 
@@ -62,14 +64,27 @@ passport.deserializeUser(User.deserializeUser(), function(id, done){
 });
 passport.use(new passportLocalStrategy(User.authenticate()));
 
+passport.use(new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        secretOrKey   : 'your_jwt_secret'
+    },
+    function (jwtPayload, cb) {
+        return User.findOneById(jwtPayload.id)
+            .then(user => {
+                return cb(null, user);
+            })
+            .catch(err => {
+                return cb(err);
+            });
+    }
+));
 
 
 
 //ROUTES SET-UP
 
 app.use('/api/sms', smsRoute)
-app.use('/api/login', loginRoute);
-app.use('/api/register', registerRoute);
+app.use('/auth', authRoute);
 app.use('/api/users', usersRoute)
 app.use('/api/logs', logsRoute)
 
@@ -80,4 +95,4 @@ app.all('*', function(req, res){
 });
 
 
-app.listen(port);
+app.listen(8081);

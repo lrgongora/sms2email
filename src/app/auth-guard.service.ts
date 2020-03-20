@@ -7,11 +7,10 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuardService implements CanActivate {
 
-
   constructor(private authService : AuthService, private route: Router) { }
-
   canActivate(){
-    if(this.authService.isAuthenticated()){
+    let user = this.authService.getUser();
+    if(this.authService.isAuthenticated() || user['isAdmin'] == true){
       return true;
     } else {
       this.route.navigate(['login']);

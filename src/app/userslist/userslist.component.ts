@@ -31,11 +31,11 @@ export class UserslistComponent implements OnInit {
   constructor(private http : HttpClient, private webApi : WebApiService, public dialog : MatDialog, private snackBar : MatSnackBar) {
       this.columnDefs = [
         {headerName: 'ID', field: '_id', hide: true},
-        {headerName: 'Username', field: 'username', filter: true, sortable: true, autoWidth: true, flex: true, checkboxSelection: true},
-        {headerName: 'First Name', field: 'firstName', filter: true, sortable: true, autoWidth: true  },
-        {headerName: 'Last Name', field: 'lastName', filter: true, sortable: true, autoWidth: true },
-        {headerName: 'Email', field: 'email', filter: true, sortable: true, autoWidth: true },
-        {headerName: 'Phone Number', field: 'phoneNumber', filter: true, sortable: true, cellEditor: 'agTextCellEditor', editable: true, autoWidth: true}
+        {headerName: 'Username', field: 'username', filter: true, sortable: true, flex: true, checkboxSelection: true},
+        {headerName: 'First Name', field: 'firstName', filter: true, sortable: true },
+        {headerName: 'Last Name', field: 'lastName', filter: true, sortable: true },
+        {headerName: 'Email', field: 'email', filter: true, sortable: true },
+        {headerName: 'Phone Number', field: 'phoneNumber', filter: true, sortable: true}
     ];
     this.webApi.getLogs();
 
@@ -58,14 +58,6 @@ export class UserslistComponent implements OnInit {
     this.rowData = users;
       console.log(users);
       })
-    }
-
-    onRowValueChanged(event){
-        console.log(event);
-    }
-
-      onRowClicked(event){
-        console.log(event);
     }
 
       openAddUser(): void {

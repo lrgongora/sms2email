@@ -9,6 +9,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: "user/dashboard", component: UserDashboardComponent },
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent },

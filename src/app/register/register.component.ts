@@ -31,7 +31,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(data){
-    this.http.post('/api/register', data).subscribe(
+    this.http.post('/auth/register', data).subscribe(
       (res) => {
         console.log(res['user']);
         if(res['status'] == "success"){

@@ -2,7 +2,7 @@ const mongoose              = require('mongoose');
 
 const logsSchema = new mongoose.Schema({
   type: String,
-  date: {type: Date, default: Date.now()},
+  date: {type: Date, default: Date.now},
   description: String,
 });
 

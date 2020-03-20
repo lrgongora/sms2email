@@ -17,7 +17,8 @@ router.post('/', function(req, res){
               return res.status(200).json({"status" : "error", "message" : err});
           }
           passport.authenticate('local')(req, res, function(){
-            res.status(200).json({"status" : "success", "user" : user })
+            let token = jwt.sign(user.toJSON(), config.secret);
+            res.status(200).json({"status" : "success", "user" : user.username, "token" : "JWT " + token })
           });
         });
       } else {
