@@ -20,6 +20,20 @@ logsHandler : (type, description) => {
     })
 }
 
+// isAdmin : (req, res, next) => {
+//   if(req.isAuthenticated()){
+//     if(req.user.isAdmin === true){
+//       next();
+//     } else {
+//       req.flash("error", "Insufficient permissions!");
+//       res.redirect('');
+//     }
+//   } else {
+//     req.flash("error", "Please, login first!");
+//     res.redirect('/login');
+//   }
+// }
+
 
 }
 
