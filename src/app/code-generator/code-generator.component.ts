@@ -14,6 +14,7 @@ export class CodeGeneratorComponent implements OnInit {
   constructor(private http : HttpClient) { }
 
   ngOnInit(): void {
+      this.code = "No data";
   }
 
   generateCode() {
