@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import { AuthGuardService} from '../auth-guard.service';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',

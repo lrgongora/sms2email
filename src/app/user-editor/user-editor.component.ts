@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialo
 import { User } from '../userslist/userslist.component';
 import { WebApiService } from '../web-api.service';
 import { FormBuilder } from '@angular/forms'
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-editor',

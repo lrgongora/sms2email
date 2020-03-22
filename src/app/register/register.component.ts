@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpResponse, HttpParams } from '@angula
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',

@@ -21,6 +21,9 @@ router.get("/", function(req, res){
 })
 
 router.post("/", function(req, res){
+    if(!req.body.username || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.phoneNumber) {
+       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
+    }
     let user = req.body;
     User.create(user, function(err, newUser){
         if(err){
@@ -35,6 +38,9 @@ router.post("/", function(req, res){
 
 
 router.put("/:id", function(req, res){
+    if(!req.body.username || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.phoneNumber) {
+       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
+    }
     let id = req.params.id;
     let user = req.body;
     User.findByIdAndUpdate(id, user, function(err, updatedUser){

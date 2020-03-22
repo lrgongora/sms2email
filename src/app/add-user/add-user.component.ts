@@ -2,6 +2,7 @@ import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { WebApiService } from '../web-api.service';
 import { FormBuilder } from '@angular/forms'
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
@@ -15,11 +16,11 @@ export class AddUserComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddUserComponent>, private formBuilder : FormBuilder, private webApi : WebApiService) { 
 
       this.addUserForm = this.formBuilder.group({
-      username: '',
-      email: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      phoneNumber: ['', Validators.required]
     })
   }
 
