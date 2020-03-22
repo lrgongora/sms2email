@@ -9,7 +9,7 @@ var express      = require('express');
 
   router.get('/:id', function(req, res){
       let code = req.params.id;
-      AuthorizationCode.findOne({code : code}).populate('user').exec(function(err, foundCode){
+      AuthorizationCode.findOne({code : code}, function(err, foundCode){
           console.log(foundCode)
           if(err){
               console.log(err);
