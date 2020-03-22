@@ -42,7 +42,7 @@ router.post('/register', middleware.verifyCode, function(req, res){
               if(err){
                   return res.status(200).json({"status" : "error", "message" : err});
               } else {
-                  user.authorizationCode.push(newCode)
+                  user.authorizationCode = newCode;
                   user.save();
                   sendEmail(user.email, "New user verification", "verifyEmail.ejs", code);
                   return res.status(200).json({"status" : "success", "message" : "Please, check your email for verification code"});
