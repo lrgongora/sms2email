@@ -10,6 +10,7 @@ var express      = require('express');
   router.get('/:id', function(req, res){
       let code = req.params.id;
       AuthorizationCode.findOne({code : code}).populate('user').exec(function(err, foundCode){
+          console.log(foundCode)
           if(err){
               console.log(err);
               return res.status(200).json({"status" : "error", "message" : err})
@@ -17,7 +18,7 @@ var express      = require('express');
               console.log("Not found!")
               return res.status(200).json({"status" : "fail", "message" : "Code not found!"})
           } else {
-              User.findOne({_id : foundCode.user}, function(err, foundUser){
+              User.findById({"_id" : foundCode.user}, function(err, foundUser){
                 if(err){
               console.log(err);
               return res.status(200).json({"status" : "error", "message" : err})
