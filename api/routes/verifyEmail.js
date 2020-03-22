@@ -29,7 +29,7 @@ var express      = require('express');
           } else {
               foundUser.isActive = true;
               foundUser.save();
-              res.status(200).sendFile(`${process.cwd()}/dist/index.html`);
+              res.redirect('/#/login');
           }
               })
           }
