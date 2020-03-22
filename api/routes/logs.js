@@ -2,11 +2,11 @@ var express      = require('express');
     router       = express.Router();
     bodyParser   = require('body-parser'),
     middleware = require('../middleware/middleware');
-    Logs     = require('../models/logs');
+    Log     = require('../models/log');
 
 
   router.get('/', function(req, res){
-      Logs.find({}, function(err, logs){
+      Log.find({}, function(err, logs){
           if(err || !logs){
             middleware.logsHandler("error", err.message)
           } else {

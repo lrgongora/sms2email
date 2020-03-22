@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
       lastName: '',
       phoneNumber: '',
       password: '',
+      authorizationCode: ''
     })
 
    }

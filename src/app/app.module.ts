@@ -14,6 +14,7 @@ import { UserEditorComponent } from './user-editor/user-editor.component';
 import { UserslistComponent } from './userslist/userslist.component';
 import { LogslistComponent } from './logslist/logslist.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { CodeGeneratorComponent } from './code-generator/code-generator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AgGridModule } from 'ag-grid-angular';
@@ -32,7 +33,8 @@ import { AgGridModule } from 'ag-grid-angular';
     UserEditorComponent,
     UserslistComponent,
     LogslistComponent,
-    AddUserComponent
+    AddUserComponent,
+    CodeGeneratorComponent
   ],
   imports: [
     BrowserModule,

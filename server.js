@@ -10,7 +10,10 @@ var express      = require('express'),
     authRoute    = require('./api/routes/auth');
     usersRoute   = require('./api/routes/users');
     logsRoute    = require('./api/routes/logs');
+    verifyEmail  = require('./api/routes/verifyEmail');
+    generateCode = require('./api/routes/generateCode');
     User         = require('./api/models/user');
+    configVars   = require('./api/config/variables');
     port         = process.env.PORT  || 8080;
     passportJWT  = require("passport-jwt");
     JWTStrategy  = passportJWT.Strategy;
@@ -36,6 +39,11 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 app.use(express.static(path.join(`${__dirname}/dist/`)));
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(require('express-session')({
+  secret: "This is the most amazing commercial",
+  resave: false,
+  saveUninitialized: false
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(User.serializeUser(), function(user, done){
@@ -69,6 +77,8 @@ app.use('/api/sms', smsRoute)
 app.use('/auth', authRoute);
 app.use('/api/users', usersRoute)
 app.use('/api/logs', logsRoute)
+app.use('/api/verifyEmail', verifyEmail)
+app.use('/api/generateCode', generateCode)
 
 //INITIAL ROUTE
 

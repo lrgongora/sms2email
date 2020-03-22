@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
   lastName: String,
   phoneNumber: String,
   password: {type: String, default: ""},
-  isAdmin: {type: Boolean, default: false}
+  isAdmin: {type: Boolean, default: false},
+  isActive: {type: Boolean, default: false},
+  authorizationCode: [{type : mongoose.Schema.Types.ObjectId, ref : 'AuthorizationCode'}]
 });
 
 userSchema.plugin(localStrategyMongoose);

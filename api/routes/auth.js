@@ -2,14 +2,19 @@ const express      = require('express');
       passport     = require('passport');
       router       = express.Router();
       jwt          = require('jsonwebtoken');
+      nodemailer   = require('nodemailer');
       User         = require('../models/user');
+      AuthorizationCode = require('../models/authorizationCode');
       config       = require('../config/variables');
+      middleware   = require('../middleware/middleware');
+      randomatic   = require('randomatic');
+      sendEmail    = require('../helper/sendEmail');
 
-router.post('/login', (req, res, next) => {
+router.post('/login', middleware.isUserActive, (req, res, next) => {
     passport.authenticate('local', (error, user, info) => {
     if (error) return res.status(200).json({"status": "error", "message": error});
     if (info) return res.status(200).json({"status": "info", "message": info});
-    req.login(user, {session: false}, function(error) {
+    req.login(user, function(error) {
         if (error) return res.status(200).json({"status": "error", "message": error});
         let token = jwt.sign(user.toJSON(), config.secret);
         res.status(200).json({"status" : "success", "user" : user, "token" : token});
@@ -18,7 +23,7 @@ router.post('/login', (req, res, next) => {
 })
 
 
-router.post('/register', function(req, res){
+router.post('/register', middleware.verifyCode, function(req, res){
   User.find({email: req.body.email}, function(err, user){
     console.log(user);
     if(err){
@@ -31,10 +36,18 @@ router.post('/register', function(req, res){
             console.log(err);
             return res.status(200).json({"status" : "error", "message" : err});
           }
-          passport.authenticate('local')(req, res, function(){
-            let token = jwt.sign(user.toJSON(), config.secret);
-            res.status(200).json({"status" : "success", "user" : user.username, "token" : token })
-          });
+          let transporter = nodemailer.createTransport(emailConfig);
+          let code = randomatic("Aa0", 10);
+          AuthorizationCode.create({code : code}, function(err, newCode){
+              if(err){
+                  return res.status(200).json({"status" : "error", "message" : err});
+              } else {
+                  user.authorizationCode.push(newCode)
+                  user.save();
+                  sendEmail(user.email, "New user verification", "verifyEmail.ejs", code);
+                  return res.status(200).json({"status" : "success", "message" : "Please, check your email for verification code"});
+              }
+          })
         });
       } else {
         return res.status(200).json({"status" : "error", "message" : "User already exists!"});
