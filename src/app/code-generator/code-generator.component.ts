@@ -19,7 +19,7 @@ export class CodeGeneratorComponent implements OnInit {
   generateCode() {
       this.http.get("/api/generateCode").subscribe(
           res => {
-              console.log(res)
+              this.code = res['code']
           },
           (err : HttpErrorResponse) => {
               console.log(err);

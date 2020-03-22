@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpResponse, HttpParams } from '@angular/common/http'
-import { response } from 'express';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class RegisterComponent implements OnInit {
 
   registerForm;
 
-  constructor(private formBuilder : FormBuilder, private http : HttpClient, private route : Router, private authService : AuthService) {
+  constructor(private formBuilder : FormBuilder, public snackBar : MatSnackBar, private http : HttpClient, private route : Router, private authService : AuthService) {
 
     this.registerForm = this.formBuilder.group({
       username: '',
@@ -36,8 +36,10 @@ export class RegisterComponent implements OnInit {
       (res) => {
         console.log(res['user']);
         if(res['status'] == "success"){
-          this.authService.setUserInfo({'user' : res['user']});
-          this.route.navigate(['user/dashboard']);
+          this.route.navigate(['user/login']);
+          this.snackBar.open("Please, check for an email verification code!", "Dismiss", {duration: 5000});
+        } else {
+          this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
         }
       },
         (err : HttpErrorResponse) => {

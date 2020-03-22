@@ -1,6 +1,7 @@
 var express      = require('express');
     router       = express.Router();
     bodyParser   = require('body-parser'),
+    path         = require('path'),
     middleware = require('../middleware/middleware');
     User          = require('../models/user');
     AuthorizationCode  = require('../models/authorizationCode');
@@ -28,7 +29,7 @@ var express      = require('express');
           } else {
               foundUser.isActive = true;
               foundUser.save();
-              return res.status(200).json({"status" : "fail", "success" : "Successfully activated user!"})
+              res.status(200).sendFile(`${process.cwd()}/dist/index.html`);
           }
               })
           }
