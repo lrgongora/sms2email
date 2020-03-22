@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
         console.log(res['user']);
         if(res['status'] == "success"){
           this.snackBar.open("Please, check for an email verification code!", "Dismiss", {duration: 5000});
-          this.route.navigate(['user/login']);
+          this.route.navigate(['/login']);
         } else {
           this.snackBar.open(res['message'].message, "Dismiss", {duration: 5000});
           this.registerForm.reset();
