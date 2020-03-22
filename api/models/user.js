@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   password: {type: String, default: ""},
   isAdmin: {type: Boolean, default: false},
   isActive: {type: Boolean, default: false},
-  authorizationCode: [{type : mongoose.Schema.Types.ObjectId, ref : 'AuthorizationCode'}]
+  authorizationCode: {type : mongoose.Schema.Types.ObjectId, ref : 'AuthorizationCode'}
 });
 
 userSchema.plugin(localStrategyMongoose);
