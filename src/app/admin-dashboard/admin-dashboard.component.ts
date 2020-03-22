@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@an
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { WebApiService } from '../web-api.service';
 import { MaterialModule } from '../material.module';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { UserEditorComponent } from '../user-editor/user-editor.component';
 
 @Component({
