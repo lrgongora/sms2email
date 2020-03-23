@@ -34,6 +34,8 @@ export class ChangePasswordComponent implements OnInit {
                 this.route.navigate(['/login']);
               } else if(res['status'] == "fail"){
                 this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
+              } else if(res['status'] == "error") {
+                this.snackBar.open(res['message'].message, "Dismiss", {duration: 5000});
               }
           },
           (err : HttpErrorResponse) => {
