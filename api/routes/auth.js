@@ -19,6 +19,7 @@ router.post('/login', middleware.isUserActive, (req, res, next) => {
     if (info) return res.status(200).json({"status": "info", "message": info});
     req.login(user, function(error) {
         if (error) return res.status(200).json({"status": "error", "message": error});
+        if (user.passwordChange) return res.redirect('/#/changePassword');
         let token = jwt.sign(user.toJSON(), config.secret);
         res.status(200).json({"status" : "success", "user" : user, "token" : token});
     });
@@ -27,9 +28,6 @@ router.post('/login', middleware.isUserActive, (req, res, next) => {
 
 
 router.post('/register', middleware.verifyCode, function(req, res){
-    if(!req.body.username || !req.body.password || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.phoneNumber) {
-       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
-    }
   User.find({email: req.body.email}, function(err, user){
     console.log(user);
     if(err){
@@ -52,7 +50,7 @@ router.post('/register', middleware.verifyCode, function(req, res){
                   newCode.save();
                   user.isAdmin = true;
                   user.save();
-                  sendEmail(user.email, "New user verification", "verifyEmail.ejs", code);
+                  sendEmail(user.email, "New user verification", "verifyEmail.ejs", `api/verifyEmail/${code}`);
                   return res.status(200).json({"status" : "success", "message" : "Please, check your email for verification code"});
               }
           })
@@ -70,6 +68,51 @@ router.get('/logout', function(req, res){
 })
 
 
+router.post('/forgotPassword', function(req, res){
+    let username = req.body.username;
+              User.findOne({username : username}, function(err, foundUser){
+                if(err){
+              console.log(err);
+              return res.status(200).json({"status" : "error", "message" : err})
+          } else if(foundUser === null){
+              console.log("Not found!")
+              return res.status(200).json({"status" : "fail", "message" : "User not found!"})
+          } else {
+              let newPassword = randomatic("Aa0", 10);
+              foundUser.setPassword(newPassword);
+              foundUser.changePassword = true;
+              foundUser.save();
+              sendEmail(foundUser.email, "Password reset", "newPassword.ejs", newPassword);
+              return res.status(200).json({"status" : "success", "message" : "Check your email for new password!"})
+          }
+              })
+})
+
+router.post('/changePassword', function(req, res){
+    let username = req.body.username;
+    let oldPassword = req.body.oldPassword;
+    let newPassword = req.body.newPassword;
+    User.findOne({username : username}, function(err, foundUser){
+      if(err){
+          return res.status(200).json({"status" : "error", "message" : err});
+      } else if(foundUser === null){
+          return res.status(200).json({"status" : "error", "User not found!" : err});
+      } else {
+          foundUser.changePassword(oldPassword, newPassword, function(err, user){
+              if(err){
+                return res.status(200).json({"status" : "error", "message" : err});
+              } else {
+                if(foundUser.passwordChange) {
+                    foundUser.passwordChange = false;
+                    foundUser.save();
+                }
+                return res.status(200).json({"status" : "success", "message" : "Password was successfully changed!"});
+              }
+          })
+      }
+});
+
+});
 
 
 module.exports = router;

@@ -15,6 +15,8 @@ import { UserslistComponent } from './userslist/userslist.component';
 import { LogslistComponent } from './logslist/logslist.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { CodeGeneratorComponent } from './code-generator/code-generator.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AgGridModule } from 'ag-grid-angular';
@@ -34,7 +36,9 @@ import { AgGridModule } from 'ag-grid-angular';
     UserslistComponent,
     LogslistComponent,
     AddUserComponent,
-    CodeGeneratorComponent
+    CodeGeneratorComponent,
+    ChangePasswordComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

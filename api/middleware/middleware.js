@@ -22,7 +22,10 @@ logsHandler : (type, description) => {
     })
 },
 
-verifyCode: (req, res, next) => {
+verifyRegisterFields: (req, res, next) => {
+    if(!req.body.username || !req.body.password || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.phoneNumber || !req.body.authorizationCode) {
+       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
+    }
     let code = req.body.authorizationCode;
     AuthorizationCode.findOne({code : code}, function(err, foundCode){
         if(err){
@@ -47,7 +50,7 @@ isUserActive: (req, res, next) => {
             if(foundUser.isActive){
                 next();
             } else {
-                return res.status(200).json({"status" : "fail", "message" : "Please, check verification email!"});
+                return res.status(200).json({"status" : "fail", "message" : "Check verification email and activate account!"});
             }
         }
     })

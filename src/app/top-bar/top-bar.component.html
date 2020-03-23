@@ -3,5 +3,6 @@
   <span style="flex: 111 auto;"></span>
   <button *ngIf="!isAuthenticated()" mat-flat-button routerLink="/login" color="primary">Login</button>
   <button *ngIf="!isAuthenticated()" mat-flat-button routerLink="/register" color="primary">Register</button>
-  <button *ngIf="isAuthenticated()" (click)="logOut()" mat-flat-button color="primary">Logout</button>
+  <button *ngIf="isAuthenticated()" mat-flat-button routerLink="/changePassword" color="primary">Change Password</button>
+  <button *ngIf="isAuthenticated()" (click)="logOut()" mat-flat-button color="primary">LogOut</button>
 </mat-toolbar>
