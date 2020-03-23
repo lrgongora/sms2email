@@ -24,7 +24,7 @@ logsHandler : (type, description) => {
 
 verifyRegisterFields: (req, res, next) => {
     if(!req.body.username || !req.body.password || !req.body.firstName || !req.body.lastName || !req.body.email || !req.body.phoneNumber || !req.body.authorizationCode) {
-       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
+       return res.status(200).json({"status": "fail", "message": "Please, fill all the fields!"});
     }
     let code = req.body.authorizationCode;
     AuthorizationCode.findOne({code : code}, function(err, foundCode){
