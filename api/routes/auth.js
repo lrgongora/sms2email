@@ -27,7 +27,7 @@ router.post('/login', middleware.isUserActive, (req, res, next) => {
 })
 
 
-router.post('/register', middleware.verifyCode, function(req, res){
+router.post('/register', middleware.verifyRegisterFields, function(req, res){
   User.find({email: req.body.email}, function(err, user){
     console.log(user);
     if(err){
