@@ -32,6 +32,9 @@ export class LoginComponent implements OnInit {
             this.snackBar.open(response['message'], "Dismiss", {duration: 5000});
         } else if(response['status'] === "success") {
       this.authService.setUserInfo({'user' : response['user'], 'token' : response['token']});
+      if(response['changePassword']){
+          return this.route.navigate(['changePassword']);
+      }
       if(response['user'].isAdmin){
           this.route.navigate(['admin/dashboard']);
       } else {

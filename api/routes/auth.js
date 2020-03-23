@@ -12,13 +12,13 @@ const express      = require('express');
 
 router.post('/login', middleware.isUserActive, (req, res, next) => {
     passport.authenticate('local', (error, user, info) => {
-    if (error) return res.status(200).json({"status": "error", "message": error});
+    if (error) return res.status(200).json({"status": "fail", "message": error});
     if (info) return res.status(200).json({"status": "info", "message": info});
     req.login(user, function(error) {
         if (error) return res.status(200).json({"status": "error", "message": error});
-        if (user.passwordChange) return res.redirect('/#/changePassword');
         let token = jwt.sign(user.toJSON(), config.secret);
-        res.status(200).json({"status" : "success", "user" : user, "token" : token});
+        res.status(200).json({"status" : "success", "user" : user, "token" : token, "changePassword" : user.passwordChange});
+        
     });
   })(req, res);
 })
