@@ -31,8 +31,8 @@ export class ChangePasswordComponent implements OnInit {
       this.http.post('/auth/changePassword', data).subscribe(
           res => {
               if(res['status'] == "success"){
-                  this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
-                this.route.navigate(['/login']);
+                this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
+                this.route.navigate(['admin/dashboard']);
               } else if(res['status'] == "fail"){
                 this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
               } else if(res['status'] == "error") {
