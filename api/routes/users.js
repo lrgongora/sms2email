@@ -58,7 +58,7 @@ router.put("/:id", function(req, res){
 router.delete("/:id", function(req, res){
     let id = req.params.id;
     console.log(req.user)
-    if(req.user._id === id){
+    if(req.user._id == id){
         return res.status(200).json({"status" : "error", "message" : "You can't delete your own profile!"});
     }
     User.findByIdAndDelete(id, function(err, deletedUser){
