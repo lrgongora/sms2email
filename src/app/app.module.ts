@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { RegisterComponent } from './register/register.component';
-import { ModalEditComponent } from './modal-edit/modal-edit.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
@@ -31,7 +30,6 @@ import { AgGridModule } from 'ag-grid-angular';
     RegisterComponent,
     UserDashboardComponent,
     TopBarComponent,
-    ModalEditComponent,
     UserEditorComponent,
     UserslistComponent,
     LogslistComponent,
