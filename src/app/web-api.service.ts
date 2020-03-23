@@ -68,7 +68,7 @@ export class WebApiService {
          res => {
             this.getUsers();
             this.getLogs();
-            this.snackBar.open("Deleted!", "Dismiss", {duration: 5000});
+            this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
          },
          (err : HttpErrorResponse) => {
             this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
