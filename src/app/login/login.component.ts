@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     .then((response) => {
         if(response['status'] === "info"){
            this.snackBar.open(response['message'].message, "Dismiss", {duration: 5000});
-        } else if(response['status'] === "fail") {
+        } else if(response['status'] === "error") {
             this.snackBar.open(response['message'], "Dismiss", {duration: 5000});
         } else if(response['status'] === "success") {
       this.authService.setUserInfo({'user' : response['user'], 'token' : response['token']});
