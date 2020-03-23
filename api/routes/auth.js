@@ -11,9 +11,6 @@ const express      = require('express');
       sendEmail    = require('../helper/sendEmail');
 
 router.post('/login', middleware.isUserActive, (req, res, next) => {
-    if(!req.body.username || !req.body.password) {
-       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
-    }
     passport.authenticate('local', (error, user, info) => {
     if (error) return res.status(200).json({"status": "error", "message": error});
     if (info) return res.status(200).json({"status": "info", "message": info});

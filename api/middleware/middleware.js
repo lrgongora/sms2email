@@ -40,6 +40,9 @@ verifyRegisterFields: (req, res, next) => {
 },
 
 isUserActive: (req, res, next) => {
+    if(!req.body.username || !req.body.password) {
+       return res.status(200).json({"status": "error", "message": "Please, fill all the fields!"});
+    }
     let username = req.body.username;
     User.findOne({username: username}, function(err, foundUser){
         if(err) {
