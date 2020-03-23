@@ -45,7 +45,7 @@ ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {authCode : auth
               var options = {
               from: '"Sms2Email" <lrgongora@outlook.com>',
               to: recipient,
-              subject: "MFA Code",
+              subject: "Verification Code",
               html: data,
              };
 
