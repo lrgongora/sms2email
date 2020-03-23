@@ -81,15 +81,14 @@ router.post('/forgotPassword', function(req, res){
               let newPassword = randomatic("Aa0", 10);
               foundUser.setPassword(newPassword, function(err, user){
                   if(err){
-                      console.log(err)
+                      return res.status(200).json({"status" : "error", "message" : err})
                   } else {
-                      console.log(user)
+                      user.changePassword = true;
+                      user.save();
+                      sendEmail(foundUser.email, "Password reset", "newPassword.ejs", newPassword);
+                      return res.status(200).json({"status" : "success", "message" : "Check your email for new password!"})
                   }
               });
-              foundUser.changePassword = true;
-              foundUser.save();
-              sendEmail(foundUser.email, "Password reset", "newPassword.ejs", newPassword);
-              return res.status(200).json({"status" : "success", "message" : "Check your email for new password!"})
           }
               })
 })
