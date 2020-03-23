@@ -2,9 +2,8 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AuthGuardService} from '../auth-guard.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +31,6 @@ export class LoginComponent implements OnInit {
         } else if(response['status'] === "fail") {
             this.snackBar.open(response['message'], "Dismiss", {duration: 5000});
         } else if(response['status'] === "success") {
-      console.log(response);
       this.authService.setUserInfo({'user' : response['user'], 'token' : response['token']});
       if(response['user'].isAdmin){
           this.route.navigate(['admin/dashboard']);

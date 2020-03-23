@@ -7,9 +7,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class WebApiService {
-    BASE_URL = "/api"
+  BASE_URL     = "/api"
   usersSubject = new Subject();
-  logsSubject = new Subject();
+  logsSubject  = new Subject();
 
   constructor(private http : HttpClient, private snackBar : MatSnackBar) { }
 
@@ -17,8 +17,6 @@ export class WebApiService {
          this.http.get(this.BASE_URL + "/users").subscribe(
          res => {
             this.usersSubject.next(res);
-            console.log(this.usersSubject)
-            console.log(res);
          },
          (err : HttpErrorResponse) => {
             this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
@@ -42,7 +40,7 @@ export class WebApiService {
          res => {
             this.getUsers();
             this.getLogs();
-            this.snackBar.open("Success!", "Dismiss", {duration: 5000});
+            this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
          },
          (err : HttpErrorResponse) => {
             this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
@@ -55,7 +53,7 @@ export class WebApiService {
          res => {
             this.getUsers();
             this.getLogs();
-            this.snackBar.open("Successfully updated!", "Dismiss", {duration: 5000});
+            this.snackBar.open(res['message'], "Dismiss", {duration: 5000});
          },
          (err : HttpErrorResponse) => {
             this.snackBar.open("Something went wrong!", "Dismiss", {duration: 5000});
