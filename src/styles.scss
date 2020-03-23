@@ -43,3 +43,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ag-cell-focus, .ag-cell {
     border: none !important;
 }
+
+div.ag-root .ag-cell-focus {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+     user-select: text;
+}
