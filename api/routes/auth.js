@@ -12,7 +12,7 @@ const express      = require('express');
 
 router.post('/login', middleware.isUserActive, (req, res, next) => {
     passport.authenticate('local', (error, user, info) => {
-    if (error) return res.status(200).json({"status": "fail", "message": error});
+    if (error) return res.status(200).json({"status": "error", "message": error});
     if (info) return res.status(200).json({"status": "info", "message": info});
     req.login(user, function(error) {
         if (error) return res.status(200).json({"status": "error", "message": error});
