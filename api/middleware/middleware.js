@@ -48,12 +48,12 @@ isUserActive: (req, res, next) => {
         if(err) {
             return res.status(200).json({"status" : "error", "message" : err});
         } else if(foundUser === null){
-            return res.status(200).json({"status" : "fail", "message" : "User does not exit!"});
+            return res.status(200).json({"status" : "error", "message" : "User does not exit!"});
         } else {
             if(foundUser.isActive){
                 next();
             } else {
-                return res.status(200).json({"status" : "fail", "message" : "Check verification email and activate account!"});
+                return res.status(200).json({"status" : "error", "message" : "Check verification email and activate account!"});
             }
         }
     })
