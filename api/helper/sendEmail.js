@@ -6,11 +6,12 @@
     User         = require('../models/user');
     middleware = require('../middleware/middleware');
     emailConfig  = require('../config/email');
+    configvars   = require('../config/variables');
     ejs          = require('ejs')
 
-    sendEmail = (recipient, subject, template, message) => {
+    sendEmail = (recipient, subject, template, data) => {
      let transporter = nodemailer.createTransport(emailConfig);
-ejs.renderFile(`${process.cwd()}/api/assets/templates/${template}`, {message : message}, function(err, data){
+ejs.renderFile(`${process.cwd()}/api/assets/templates/${template}`, {data : data}, function(err, data){
         if(err){
             console.log(err);
         } else {

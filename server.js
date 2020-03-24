@@ -19,9 +19,7 @@ var express      = require('express'),
     JWTStrategy  = passportJWT.Strategy;
     ExtractJWT   = passportJWT.ExtractJwt;
 
-const mongoUri = process.env.MONGOURI;
-
-mongoose.connect(mongoUri, {useNewUrlParser: true, useUnifiedTopology: true}, function(err){
+mongoose.connect(configVars.database, {useNewUrlParser: true, useUnifiedTopology: true}, function(err){
   if(err){
     console.log(err);
   }

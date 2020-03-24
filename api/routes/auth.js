@@ -5,7 +5,7 @@ const express      = require('express');
       nodemailer   = require('nodemailer');
       User         = require('../models/user');
       AuthorizationCode = require('../models/authorizationCode');
-      config       = require('../config/variables');
+      configVars       = require('../config/variables');
       middleware   = require('../middleware/middleware');
       randomatic   = require('randomatic');
       sendEmail    = require('../helper/sendEmail');
@@ -16,7 +16,7 @@ router.post('/login', middleware.isUserActive, (req, res, next) => {
     if (info) return res.status(200).json({"status": "info", "message": info});
     req.login(user, function(error) {
         if (error) return res.status(200).json({"status": "error", "message": error});
-        let token = jwt.sign(user.toJSON(), config.secret);
+        let token = jwt.sign(user.toJSON(), configVars.secret);
         res.status(200).json({"status" : "success", "user" : user, "token" : token, "changePassword" : user.passwordChange});
         
     });
@@ -47,7 +47,7 @@ router.post('/register', middleware.verifyRegisterFields, function(req, res){
                   newCode.save();
                   user.isAdmin = true;
                   user.save();
-                  sendEmail(user.email, "New user verification", "verifyEmail.ejs", `api/verifyEmail/${code}`);
+                  sendEmail(user.email, "New user verification", "verifyEmail.ejs", `${configVars.baseURL}api/verifyEmail/${code}`);
                   return res.status(200).json({"status" : "success", "message" : "Please, check your email for verification code"});
               }
           })
