@@ -63,7 +63,7 @@ router.post('/register', middleware.verifyRegisterFields, function(req, res) {
                             "message": err
                         });
                     }
-                    let transporter = nodemailer.createTransport(emailConfig);
+                    let transporter = nodemailer.createTransport(config.email);
                     let code = randomatic("Aa0", 10);
                     AuthorizationCode.create({
                         code: code
