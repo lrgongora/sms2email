@@ -1,4 +1,6 @@
-# SmsToEmail
+# Sms2Email
+
+Deployed in: https://secure-springs-84182.herokuapp.com/
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.6.
 
