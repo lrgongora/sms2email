@@ -19,13 +19,16 @@ router.post('/callback', function(req, res) {
     middleware.logsHandler("error", "Can't find verification code in message!")
     var inboundNumber = req.body.to;
     var authCode = req.body.text || req.body.body;
+    console.log(authCode)
     authCode = authCode.match(/([0-9])\w{3,}/);
     if (authCode == null) {
+        console.log("IF:" + authCode)
         middleware.logsHandler("error", "Can't find verification code in message!")
         return res.status(200).json({
             "message": "success"
         })
     } else {
+        console.log("ELSE:" + authCode)
         authCode = authCode[0];
     }
     User.findOne({
