@@ -37,6 +37,16 @@ router.post('/callback', function(req, res) {
         } else {
             var recipient = foundUser.email
             let transporter = nodemailer.createTransport(config.email);
+
+            // verify connection configuration
+transporter.verify(function(error, success) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
+
             ejs.renderFile(`${process.cwd()}/api/assets/templates/otc.ejs`, {
                 authCode: authCode
             }, function(err, data) {
