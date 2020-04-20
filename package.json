@@ -28,6 +28,7 @@
     "angular-bootstrap-md": "^9.0.0",
     "angular5-csv": "^0.2.11",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",

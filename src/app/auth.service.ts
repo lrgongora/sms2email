@@ -3,37 +3,46 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-    isAdmin : Boolean;
-  constructor(private http: HttpClient, private route : Router) { }
+    isAdmin: Boolean;
 
-  public isAuthenticated () : Boolean {
-    let userInfo = localStorage.getItem("userInfo");
-    if(userInfo && JSON.parse(userInfo)){
-      return true;
-    } else {
-      return false;
+    constructor(private http: HttpClient, private route: Router) {}
+
+    public isAuthenticated(): Boolean {
+        let userInfo = localStorage.getItem("user");
+        if (userInfo) {
+            return true;
+        } else {
+            return false;
+        }
     }
-  }
 
-  public setUserInfo(user) {
-    localStorage.setItem("userInfo", JSON.stringify(user));
-  }
+    public setUserInfo(user) {
+        localStorage.setItem("user", JSON.stringify(user));
+    }
 
-  public getUser(){
-      return localStorage.getItem("userInfo");
-  }
+    public setToken(token) {
+        localStorage.setItem("token", token);
+    }
 
-  public validate(username, password){
-    return this.http.post('/auth/login', {"username" : username, "password": password}).toPromise();
-  }
+    public getUser() {
+        return localStorage.getItem("user");
+    }
 
-  public logOut(){
-      localStorage.removeItem("userInfo");
-      this.route.navigate(['login']);
-      return this.http.get('/auth/logout').subscribe();
-  }
+    public validate(username, password) {
+        return this.http.post('/auth/login', {
+            "username": username,
+            "password": password
+        }).toPromise();
+    }
+
+    public logOut() {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        this.route.navigate(['login']);
+        return this.http.get('/auth/logout').subscribe();
+    }
 
 }
