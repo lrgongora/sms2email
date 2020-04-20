@@ -19,29 +19,24 @@ router.post('/callback', function(req, res) {
     var inboundNumber = req.body.to;
     var authCode = req.body.text || req.body.body;
     authCode = authCode.match(/([0-9])\w{3,}/);
-    if (authCode === null) {
+    if (authCode == null) {
         middleware.logsHandler("error", "Can't find verification code in message!")
         return res.status(200).json({
             "message": "success"
         })
     } else {
         authCode = authCode[0];
+        return res.status(200).json({
+            "message": "success"
+        })
     }
     User.findOne({
         phoneNumber: inboundNumber
     }, function(err, foundUser) {
         if (err) {
-            middleware.logsHandler("error", err.message)
-            console.log(err)
-            return res.status(200).json({
-                "status": "ok"
-            });
+            return middleware.logsHandler("error", err.message)
         } else if (foundUser === null) {
-            middleware.logsHandler("error", "Phone number not found")
-            console.log(err)
-            return res.status(200).json({
-                "status": "ok"
-            });
+            return middleware.logsHandler("error", "Phone number not found")
         } else {
             var recipient = foundUser.email
             let transporter = nodemailer.createTransport(config.email);
@@ -61,10 +56,6 @@ router.post('/callback', function(req, res) {
                     transporter.sendMail(options, function(err, info) {
                         if (err) {
                             middleware.logsHandler("error", err.message)
-                            return res.status(200).json({
-                                "status": "error",
-                                "message": err
-                            });
                         }
                         console.log(info)
                         console.log("Message sent: %s", info.messageId);
