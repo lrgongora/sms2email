@@ -26,9 +26,6 @@ router.post('/callback', function(req, res) {
         })
     } else {
         authCode = authCode[0];
-        return res.status(200).json({
-            "message": "success"
-        })
     }
     User.findOne({
         phoneNumber: inboundNumber
