@@ -36,7 +36,7 @@
     "jwt-passport": "0.0.5",
     "ldapjs": "^1.0.2",
     "mdbootstrap": "^4.14.1",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.12.2",
     "nodemailer": "^6.4.5",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
